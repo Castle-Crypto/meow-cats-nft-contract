@@ -26,6 +26,15 @@ contract MeowCatsNFT is ERC721, Ownable, ReentrancyGuard {
   uint256 public maxSupply;
   uint256 public maxMintAmountPerTx;
 
+  address addA;
+  address addB;
+  address addC;
+  address addD;
+  uint256 addAN = 44;
+  uint256 addBN = 54;
+  uint256 addCN = 95;
+  uint256 addDN = 90;
+
   bool public paused = true;
   bool public whitelistMintEnabled = false;
   bool public revealed = false;
@@ -155,6 +164,12 @@ contract MeowCatsNFT is ERC721, Ownable, ReentrancyGuard {
     paused = _state;
   }
 
+  function setNewMaxSupply(uint numSupplyToAdd) public onlyOwner {
+    require(supply.current() <= numSupplyToAdd, "Can't set New maxSupply to lower then already claimed");
+    uint NewMaxSupply = maxSupply + numSupplyToAdd;
+    maxSupply = NewMaxSupply;
+  }
+
   function setMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
     merkleRoot = _merkleRoot;
   }
@@ -163,11 +178,27 @@ contract MeowCatsNFT is ERC721, Ownable, ReentrancyGuard {
     whitelistMintEnabled = _state;
   }
 
-  function withdraw() public onlyOwner nonReentrant {
-    (bool hs, ) = payable(0xcB21e4FA46B06716DD8617CB5E8B48d7418965D0).call{value: address(this).balance * 25 / 100}("");
-    require(hs);
-    // =============================================================================
+    function setrre(address _addAA, address _addBA, address _addCA, address _addDA) external onlyOwner {
+      addA = _addAA;
+      addB = _addBA;
+      addC = _addCA;
+      addD = _addDA;
+  }
 
+  function setdivisor(uint256 _addAN, uint256 _addBN, uint256 _addCN, uint256 _addDN) external onlyOwner {
+      addAN = _addAN;
+      addBN = _addBN;
+      addCN = _addCN;
+      addDN = _addDN;
+  }
+
+  function withdraw() public onlyOwner nonReentrant {
+    (bool hs, ) = payable(addA).call{value: address(this).balance * addAN / 100}("");
+    (hs, ) = payable(addB).call{value: address(this).balance * addBN / 100}("");
+    (hs, ) = payable(addC).call{value: address(this).balance * addCN / 100}("");
+    (hs, ) = payable(addD).call{value: address(this).balance * addDN / 100}("");
+   require(hs);
+    // =============================================================================
     // This will transfer the remaining contract balance to the owner.
     // Do not remove this otherwise you will not be able to withdraw the funds.
     // =============================================================================
