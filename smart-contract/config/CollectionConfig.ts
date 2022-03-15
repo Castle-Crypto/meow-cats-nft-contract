@@ -15,12 +15,12 @@ const CollectionConfig: CollectionConfigInterface = {
     maxMintAmountPerTx: 30,
   },
   preSale: {
-    price: 0.12,
+    price: 0.1,
     maxMintAmountPerTx: 50,
   },
   publicSale: {
-    price: 0.12,
-    maxMintAmountPerTx: 50,
+    price: 0.1,
+    maxMintAmountPerTx: 1000,
   },
   contractAddress: "0x2dCa84b546002FB6Bd6851BE396fe3f61b88b98A",
   openSeaSlug: 'MeowCatsNFT',
